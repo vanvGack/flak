@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :users
-  map.resource  :session
-  map.resources :messages
+  map.resources :users, :only => :create
+  map.resource  :session, :only => [:create, :destroy]
+  map.resources :messages, :only => [:index, :create]
 end
