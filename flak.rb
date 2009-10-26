@@ -1,7 +1,8 @@
 require 'rubygems'
 require 'sinatra'
+require 'activerecord'
 
 
 get "/" do
-  "Hi"
+  erb :index
 end
