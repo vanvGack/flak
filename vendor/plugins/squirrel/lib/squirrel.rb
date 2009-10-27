@@ -145,7 +145,7 @@ module Squirrel
         attr_reader :total_results
       end
 
-      total_results = model.count(conditions)
+      total_results = model.count(conditions.except(:order))
       set.instance_variable_set("@pages", 
                                 Paginator.new( :count => total_results, 
                                                :limit => limit, 
