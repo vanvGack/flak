@@ -1,1 +1,87 @@
-<p>Hi!</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Flak :: A Private, API-based Chat Server</title>
+    <link rel="stylesheet" href="/stylesheets/reset.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="/stylesheets/flak.css" type="text/css" charset="utf-8"/>
+  </head>
+  <body>
+    <div id="header">
+      <img src="/images/logo.gif" alt="Flak"/><br/>
+      <img src="/images/tag.gif" alt="A Private, API-based Chat Server">
+    </div>
+    <div id="content">
+      <div class="resource">
+        <h2>Users</h2>
+        <div class="action">
+          <h3>POST /users</h3>
+          <p>Create a new user account.</p>
+          <div class="request">
+            <p><em>Request:</em></p>
+<pre>{
+  "user" => {
+    "first_name": "Name",
+    "last_name": "Name",
+    "email": "email@example.com",
+    "password": "asdfasdf",
+    "password_confirmation": "asdfasdf"
+  }
+}</pre>
+          </div>
+        </div>
+        <div class="action">
+          <h3>GET /users</h3>
+          <p>Retrieve a list of registered users.</p>
+        </div>
+        <div class="action">
+          <h3>GET /users/current</h3>
+          <p>Retrieve a list of currently logged in users.</p>
+        </div>
+      </div>
+
+      <div class="resource">
+        <h2>Sessions</h2>
+        <div class="action">
+          <h3>POST /session</h3>
+          <p>Create a new user session.</p>
+          <div class="request">
+            <p><em>Request:</em></p>
+<pre>{
+  "session" => {
+    "email" => "email@example.com",
+    "password" => "asdfasdf"
+  }
+}</pre>
+          </div>
+        </div>
+        <div class="action">
+          <h3>DELETE /session</h3>
+          <p>Destroy the current user session.</p>
+        </div>
+      </div>
+
+      <div class="resource">
+        <h2>Messages</h2>
+        <div class="action">
+          <h3>GET /messages</h3>
+          <p>Get a list of messages.</p>
+        </div>
+        <div class="action">
+          <h3>POST /messages</h3>
+          <p>Post a new message.</p>
+          <div class="request">
+            <p><em>Request:</em></p>
+<pre>{
+  "message" => {
+    "body" => "email@example.com"
+  }
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">No &copy; here. Flak is free.</div>
+  </body>
+</html>

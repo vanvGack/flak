@@ -1,0 +1,12 @@
+* { font-family: "Helvetica", "Arial", sans-serif; }
+body { background: #ccc; padding-top: 20px; }
+#header { width: 500px; margin: 0 auto 15px; }
+#content { width: 500px; margin: 0 auto 15px; background: #eee; padding: 15px; -webkit-border-radius: 8px; }
+h2 { color: #06c; font-size: 120%; margin-bottom: 15px; }
+.resource { margin-bottom: 25px; }
+.action { margin: 15px 0; }
+h3 { font-size: 90%; padding-bottom: 0; }
+p { font-size: 80%; }
+.request p { margin-top: 15px; }
+pre { font-family: monospace; font-size: 90%; padding: 0 15px; margin: 10px 0 10px 25px; display: block; border-left: 2px solid #06c; }
+#footer { width: 500px; margin: 0 auto 15px; font-size: 10px; color: #888; }
