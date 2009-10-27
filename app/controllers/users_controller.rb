@@ -7,17 +7,24 @@ class UsersController < ApplicationController
       paginate :page => params[:page], :per_page => params[:per_page]
       order_by email
     end
-    render :json => @users.to_json(:only => [:id, :email])
+    respond_to do |wants|
+      wants.json { render :json => @users.to_json(:only => [:id, :email]) }
+      wants.xml { render :xml => @users.to_xml(:only => [:id, :email]) }
+    end
   end
 
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
-    if @user.save
-      self.current_user = @user
-      render :json => @user.to_json(:only => :id)
-    else
-      render :json => @user.errors.full_messages
+    respond_to do |wants|
+      if @user.save
+        self.current_user = @user
+        wants.json { render :json => @user.to_json(:only => :id) }
+        wants.xml { render :xml => @user.to_xml(:only => :id) }
+      else
+        wants.json { render :json => @user.errors.full_messages }
+        wants.xml { render :xml => @user.errors.full_messages }
+      end
     end
   end
 
@@ -27,7 +34,10 @@ class UsersController < ApplicationController
       logged_in == true
       order_by email
     end
-    render :json => @users.to_json(:only => [:id, :email])
+    respond_to do |wants|
+      wants.json { render :json => @users.to_json(:only => [:id, :email]) }
+      wants.xml { render :xml => @users.to_xml(:only => [:id, :email]) }
+    end
   end
 
   def prune
