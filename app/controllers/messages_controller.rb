@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
 
 
   def index
-    @messages = Message.all do
+    @messages = Message.find(:all) do
       paginate :page => params[:page], :per_page => params[:per_page]
       order_by created_at.desc
     end

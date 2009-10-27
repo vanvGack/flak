@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
-  before_filter :login_required, :only => :index
+  before_filter :login_required, :only => [:index, :current]
 
   def index
-    @users = User.all do
-      paginage :page => params[:page], :per_page => params[:per_page]
+    @users = User.find(:all) do
+      paginate :page => params[:page], :per_page => params[:per_page]
       order_by email
     end
     render :json => @users.to_json(:only => [:id, :email])
@@ -19,6 +19,15 @@ class UsersController < ApplicationController
     else
       render :json => @user.errors.full_messages
     end
+  end
+
+  def current
+    @users = User.find(:all) do
+      paginate :page => params[:page], :per_page => params[:per_page]
+      last_activity_at > 1.minutes.ago
+      order_by email
+    end
+    render :json => @users.to_json(:only => [:id, :email])
   end
 
 end
