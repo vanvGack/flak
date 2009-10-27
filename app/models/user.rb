@@ -25,4 +25,8 @@ class User < ActiveRecord::Base
     write_attribute :email, (value ? value.downcase : nil)
   end
 
+  def check_in!
+    update_attribute(:last_activity_at, Time.now.utc)
+  end
+
 end

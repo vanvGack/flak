@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :salt,                      :string, :limit => 40
       t.column :created_at,                :datetime
       t.column :updated_at,                :datetime
+      t.column :last_activity_at,          :datetime
     end
 
     add_index :users, :email, :unique => true
