@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
   def create
     logout_keeping_session!
-    user = User.authenticate(params[:email], params[:password])
+    user = User.authenticate(params[:session])
     if user
       self.current_user = user
       head :ok

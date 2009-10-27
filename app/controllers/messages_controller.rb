@@ -12,9 +12,9 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(params)
+    @message = Message.new(params[:message])
     if @message.save
-      render :json => { :created_at => @message.created_at, :id => @message.id }
+      render :json => @message.to_json(:only => [:created_at, :id])
     else
       render :json => @message.errors.full_messages
     end
