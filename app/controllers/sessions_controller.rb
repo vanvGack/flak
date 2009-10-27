@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
     logout_keeping_session!
     user = User.authenticate(params[:session])
     if user
+      user.login!
       self.current_user = user
       head :ok
     else
@@ -12,6 +13,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.logout!
     logout_killing_session!
     head :ok
   end

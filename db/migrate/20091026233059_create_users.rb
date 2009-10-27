@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :created_at,                :datetime
       t.column :updated_at,                :datetime
       t.column :last_activity_at,          :datetime
+      t.column :logged_in,                 :boolean, :default => false
     end
 
     add_index :users, :email, :unique => true

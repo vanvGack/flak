@@ -24,10 +24,15 @@ class UsersController < ApplicationController
   def current
     @users = User.find(:all) do
       paginate :page => params[:page], :per_page => params[:per_page]
-      last_activity_at > 1.minutes.ago
+      logged_in == true
       order_by email
     end
     render :json => @users.to_json(:only => [:id, :email])
+  end
+
+  def prune
+    User.logout_stale!
+    head :ok
   end
 
 end

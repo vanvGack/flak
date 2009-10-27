@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   has_many :messages
 
+  named_scope :stale, proc { { :conditions => ['last_activity_at < ? AND logged_in = ?', 5.minutes.ago, true] } }
+
   def self.authenticate(options)
     options ||= {}
     return nil if options[:email].blank? || options[:password].blank?
@@ -26,7 +28,30 @@ class User < ActiveRecord::Base
   end
 
   def check_in!
-    update_attribute(:last_activity_at, Time.now.utc)
+    self.last_activity_at = Time.now.utc
+    self.logged_in = true
+    save
+  end
+
+  def self.logout_stale!
+    User.stale.each do |user|
+      user.stale_logout!
+    end
+  end
+
+  def stale_logout!
+    update_attribute(:logged_in, false)
+    messages.create(:kind => 'stale_logout')
+  end
+
+  def logout!
+    update_attribute(:logged_in, false)
+    messages.create(:kind => 'logout')
+  end
+
+  def login!
+    update_attribute(:logged_in, true)
+    messages.create(:kind => 'login')
   end
 
 end
