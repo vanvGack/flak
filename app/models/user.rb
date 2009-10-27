@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
 
   def check_in!
     self.last_activity_at = Time.now.utc
+    messages.create(:kind => 'login') unless logged_in?
     self.logged_in = true
     save
   end
