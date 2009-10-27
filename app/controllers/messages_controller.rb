@@ -6,17 +6,27 @@ class MessagesController < ApplicationController
   def index
     @messages = Message.find(:all) do
       paginate :page => params[:page], :per_page => params[:per_page]
+      if params[:from_id]
+        id > params[:from_id]
+      end
       order_by created_at.desc
     end
-    render :json => @messages
+    respond_to do |wants|
+      wants.json { render :json => @messages }
+      wants.xml { render :xml => @messages }
+    end
   end
 
   def create
     @message = current_user.messages.build(params[:message].merge(:kind => 'message'))
-    if @message.save
-      render :json => @message.to_json(:only => [:created_at, :id])
-    else
-      render :json => @message.errors.full_messages
+    respond_to do |wants|
+      if @message.save
+        wants.json { render :json => @message.to_json(:only => [:created_at, :id]) }
+        wants.xml { render :xml => @message.to_xml(:only => [:created_at, :id]) }
+      else
+        wants.json { render :json => @message.errors.full_messages }
+        wants.xml { render :xml => @message.errors.full_messages }
+      end
     end
   end
 
