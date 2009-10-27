@@ -12,8 +12,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = current_user.messages.build(params[:message])
-    @message.kind ||= "message"
+    @message = current_user.messages.build(params[:message].merge(:kind => 'message'))
     if @message.save
       render :json => @message.to_json(:only => [:created_at, :id])
     else
