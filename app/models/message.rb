@@ -4,6 +4,6 @@ class Message < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_inclusion_of :kind, :in => %w{message event}
+  validates_inclusion_of :kind, :in => %w{message login logout stale_logout}
 
 end
