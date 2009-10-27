@@ -3,7 +3,10 @@ class UsersController < ApplicationController
   before_filter :login_required, :only => :index
 
   def index
-    @users = User.all
+    @users = User.all do
+      paginage :page => params[:page], :per_page => params[:per_page]
+      order_by email
+    end
     render :json => @users.to_json(:only => [:id, :email])
   end
 
