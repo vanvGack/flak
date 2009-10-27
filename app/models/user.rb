@@ -6,11 +6,14 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
 
   validates_presence_of     :email
-  validates_length_of       :email,    :within => 6..100 #r@a.wk
+  validates_length_of       :email,    :within => 6..100
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
   attr_accessible :login, :email, :password, :password_confirmation
+
+  has_many :messages
+
 
   def self.authenticate(email, password)
     return nil if email.blank? || password.blank?

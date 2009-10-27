@@ -1,6 +1,6 @@
 class Message < ActiveRecord::Base
 
-  attr_accessible :message, :kind
+  attr_accessible :body, :kind
 
   belongs_to :user
 

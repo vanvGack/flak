@@ -12,7 +12,8 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(params)
+    @message = current_user.messages.build(params)
+    @message.kind = "message"
     if @message.save
       render :json => { :created_at => @message.created_at, :id => @message.id }
     else
