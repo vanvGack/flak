@@ -8,8 +8,8 @@ class UsersController < ApplicationController
       order_by email
     end
     respond_to do |wants|
-      wants.json { render :json => @users.to_json(:only => [:id, :email]) }
-      wants.xml { render :xml => @users.to_xml(:only => [:id, :email]) }
+      wants.json { render :json => @users.to_json(:only => [:id, :email, :first_name, :last_name]) }
+      wants.xml { render :xml => @users.to_xml(:only => [:id, :email, :first_name, :last_name]) }
     end
   end
 
@@ -35,8 +35,8 @@ class UsersController < ApplicationController
       order_by email
     end
     respond_to do |wants|
-      wants.json { render :json => @users.to_json(:only => [:id, :email]) }
-      wants.xml { render :xml => @users.to_xml(:only => [:id, :email]) }
+      wants.json { render :json => @users.to_json(:only => [:id, :email, :first_name, :last_name]) }
+      wants.xml { render :xml => @users.to_xml(:only => [:id, :email, :first_name, :last_name]) }
     end
   end
 
