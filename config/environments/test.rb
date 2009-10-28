@@ -28,4 +28,4 @@ config.action_mailer.delivery_method = :test
 # config.active_record.schema_format = :sql
 
 config.gem 'shoulda',      :source => 'http://gemcutter.org'
-config.gem 'timecop',      :source => 'http://gemcutter.org'
+config.gem 'mocha',        :source => 'http://gemcutter.org'
