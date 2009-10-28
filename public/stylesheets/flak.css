@@ -4,6 +4,9 @@ body { background: #ccc; padding-top: 20px; }
 #content { width: 500px; margin: 0 auto 15px; background: #eee; padding: 15px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; }
 #introduction { margin-bottom: 20px; }
 h1 { margin-bottom: 15px; }
+ul { margin-left: 18px; }
+li { margin: 6px 0; font-size: 80%; list-style-type: square; }
+code { font-family: monospace; font-size: 115%; }
 h2 { color: #06c; font-size: 120%; margin-bottom: 15px; }
 .resource { margin-bottom: 25px; }
 .action { margin: 15px 0 -10px 20px; }
@@ -12,9 +15,7 @@ h3 span { font-family: "Hiragino Kaku Gothic Pro", "Osaka", "Zapf Dingbats"; pos
 p { font-size: 80%; margin-bottom: 10px; }
 dt { font-style: italic; font-size: 90%; }
 dd { padding-bottom: 5px; }
-dd ul { margin-left: 18px; }
-dd li { margin: 6px 0; font-size: 80%; list-style-type: square; }
 dd p { margin: 6px 0; }
-code { font-family: monospace; font-size: 90%; padding: 0 6px; margin: 10px 0 10px 2px; display: block; border-left: 1px dotted #888; color: #888; }
+dd code { font-size: 90%; padding: 0 6px; margin: 10px 0 10px 2px; display: block; border-left: 1px dotted #888; color: #888; }
 #footer { width: 500px; margin: 0 auto 15px; font-size: 10px; color: #888; }
 #footer a { color: #888; }
