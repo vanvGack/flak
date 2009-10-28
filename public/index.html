@@ -143,6 +143,7 @@
             <dt>Success Response:</dt>
             <dd>
               <p>There are 4 kinds of messages: login, logout, stale_logout, and message. A stale log out will occur when a user closes their client without destroying their session. The rest are self-explanatory.</p>
+              <p>When not specifying after_id or before_id the response is in reverse chronological order (newest to oldest).</p>
               <code>[{ "message": { "user_first_name": "bob", "user_last_name": "smith", "kind": "message", "created_at": "2009-10-27T04:11:47Z", "body": "Message", "updated_at": "2009-10-27T04:11:47Z", "id": 1, "user_id": 1 } }]</code>
             </dd>
           </dl>
