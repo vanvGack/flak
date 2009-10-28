@@ -36,4 +36,10 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   include AuthenticatedTestHelper
+
+  def stub_time(utc)
+    Time.stubs(:now).returns(utc)
+    return utc
+  end
+
 end

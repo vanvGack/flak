@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
 
-  validates_presence_of     :email
+  validates_presence_of     :email, :first_name, :last_name
   validates_length_of       :email,    :within => 6..100
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
@@ -23,36 +23,46 @@ class User < ActiveRecord::Base
     u && u.authenticated?(options[:password]) ? u : nil
   end
 
-  def email=(value)
-    write_attribute :email, (value ? value.downcase : nil)
-  end
-
   def check_in!
-    self.last_activity_at = Time.now.utc
-    messages.create(:kind => 'login') unless logged_in?
-    self.logged_in = true
-    save
+    transaction do
+      self.last_activity_at = Time.now
+
+      if !logged_in?
+        messages.create(:kind => 'login')
+        self.logged_in = true
+      end
+
+      save!
+    end
   end
 
   def self.logout_stale!
-    User.stale.each do |user|
-      user.stale_logout!
+    transaction do
+      User.stale.each do |user|
+        user.stale_logout!
+      end
     end
   end
 
   def stale_logout!
-    update_attribute(:logged_in, false)
-    messages.create(:kind => 'stale_logout')
+    transaction do
+      update_attribute(:logged_in, false)
+      messages.create!(:kind => 'stale_logout')
+    end
   end
 
   def logout!
-    update_attribute(:logged_in, false)
-    messages.create(:kind => 'logout')
+    transaction do
+      update_attribute(:logged_in, false)
+      messages.create!(:kind => 'logout')
+    end
   end
 
   def login!
-    update_attribute(:logged_in, true)
-    messages.create(:kind => 'login')
+    transaction do
+      update_attribute(:logged_in, true)
+      messages.create!(:kind => 'login')
+    end
   end
 
 end
