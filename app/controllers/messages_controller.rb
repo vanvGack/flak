@@ -4,16 +4,21 @@ class MessagesController < ApplicationController
 
 
   def index
-    @messages = Message.find(:all) do
+    @messages = Message.find(:all, :include => :user) do
       paginate :page => params[:page], :per_page => params[:per_page]
-      if params[:from_id]
-        id > params[:from_id]
+      if params[:after_id]
+        id > params[:after_id]
+        order_by created_at.asc
+      elsif params[:before_id]
+        id < params[:before_id]
+        order_by created_at.desc
+      else
+        order_by created_at.desc
       end
-      order_by created_at.desc
     end
     respond_to do |wants|
-      wants.json { render :json => @messages }
-      wants.xml { render :xml => @messages }
+      wants.json { render :json => @messages.to_json(:methods => [:user_first_name, :user_last_name]) }
+      wants.xml { render :xml => @messages.to_json(:methods => [:user_first_name, :user_last_name]) }
     end
   end
 
