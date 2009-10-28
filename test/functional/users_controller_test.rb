@@ -26,16 +26,17 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     context "#current" do
-      should "return the list of non-stale users" do
+      should "return the list of logged-in users" do
         user = Factory(:user)
         login_as(user)
-        @stale_user = Factory(:stale_user)
+        @logged_out_user = Factory(:logged_out_user)
         @active_user = Factory(:active_user)
         get :current
         assert_response :success
-        body = JSON.parse(@response.body)
+        body = JSON.parse(@response.body).sort_by{|r| r['user']['id'] }
         assert_equal user.id, body.first['user']['id']
         assert_equal @active_user.id, body.last['user']['id']
+        assert !body.any?{|r| r['user']['id'] == @logged_out_user.id }
       end
     end
 
