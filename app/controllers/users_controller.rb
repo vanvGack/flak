@@ -19,8 +19,8 @@ class UsersController < ApplicationController
     respond_to do |wants|
       if @user.save
         self.current_user = @user
-        wants.json { render :json => @user.to_json(:only => :id) }
-        wants.xml { render :xml => @user.to_xml(:only => :id) }
+        wants.json { render :json => @user.to_json(:only => [:id, :email, :first_name, :last_name]) }
+        wants.xml { render :xml => @user.to_xml(:only => [:id, :email, :first_name, :last_name]) }
       else
         wants.json { render :json => @user.errors.full_messages }
         wants.xml { render :xml => @user.errors.full_messages }

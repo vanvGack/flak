@@ -26,8 +26,8 @@ class MessagesController < ApplicationController
     @message = current_user.messages.build(params[:message] && params[:message].merge(:kind => 'message'))
     respond_to do |wants|
       if @message.save
-        wants.json { render :json => @message.to_json(:only => [:created_at, :id]) }
-        wants.xml { render :xml => @message.to_xml(:only => [:created_at, :id]) }
+        wants.json { render :json => @message.to_json(:methods => [:user_first_name, :user_last_name]) }
+        wants.xml { render :xml => @message.to_xml(:methods => [:user_first_name, :user_last_name]) }
       else
         wants.json { render :json => @message.errors.full_messages }
         wants.xml { render :xml => @message.errors.full_messages }
