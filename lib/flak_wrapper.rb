@@ -2,6 +2,36 @@ require 'rubygems'
 require 'active_support'
 require 'httparty'
 
+# module HTTParty
+#   class Request
+#   private
+#     # HTTParty.const_get((self.format.to_s || 'text').capitalize)
+#     def parse_response(body)
+#       require 'ruby-debug'
+#       debugger
+#       return nil if body.nil? or body.empty?
+#       if options[:parser].blank?
+#         case format
+#           when :xml
+#             Crack::XML.parse(body)
+#           when :json
+#             Crack::JSON.parse(body)
+#           when :yaml
+#             YAML::load(body)
+#           else
+#             body
+#           end
+#       else
+#         if options[:parser].is_a?(Proc)
+#           options[:parser].call(body)
+#         else
+#           body
+#         end
+#       end
+#     end
+#   end
+# end
+
 class FlakWrapper
   include HTTParty
 
