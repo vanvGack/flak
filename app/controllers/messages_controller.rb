@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
       paginate :page => params[:page], :per_page => params[:per_page]
       if params[:after_id]
         id > params[:after_id]
-        order_by created_at.asc
+        order_by created_at
       elsif params[:before_id]
         id < params[:before_id]
         order_by created_at.desc
