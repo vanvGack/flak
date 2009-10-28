@@ -14,15 +14,21 @@
     </div>
     <div id="content">
 
+      <h1>Welcome to Flak.</h1>
       <div id="introduction">
-        <h1><strong>Welcome to Flak.</strong></h1>
-        <p>Flak is a private, API-based chat server made to be used as the back-end to a variety of clients. Requests are made and returned in either XML or JSON. This is accomplished in one of two ways:</p>
+        <p>Flak is a private, API-based chat server made to be used as the back-end to a variety of clients. Flak is open source and can be found at <a href="http://github.com/sevenwire/flak">http://github.com/sevenwire/flak</a>.</p>
+      </div>
+
+      <h1>HTTP Headers and Formats</h1>
+      <div id="formats">
+        <p>Requests are made and returned in either XML or JSON. This is accomplished by:</p>
         <ul>
-          <li>Adding <code>.json</code> or <code>.xml</code> the the resource URI, or</li>
+          <li>Adding <code>.json</code> or <code>.xml</code> the the resource URI</li>
           <li>Sending both <code>Content-Type</code> and <code>Accept</code> headers as either <code>application/json</code> or <code>application/xml</code>.</li>
         </ul>
       </div>
 
+      <h1>Resources</h1>
       <div class="resource">
         <h2>Users</h2>
 
