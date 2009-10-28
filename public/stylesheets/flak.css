@@ -3,11 +3,12 @@ body { background: #ccc; padding-top: 20px; }
 #header { width: 500px; margin: 0 auto 15px; }
 #content { width: 500px; margin: 0 auto 15px; background: #eee; padding: 15px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; }
 #introduction { margin-bottom: 20px; }
-h1 { margin-bottom: 15px; }
-ul { margin-left: 18px; }
+#formats { margin-bottom: 20px; }
+h1 { margin-bottom: 15px; font-size: 120%; background: #06c; color: #eee; padding: 4px 8px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; }
+ul { margin-left: 18px; margin-bottom: 10px; }
 li { margin: 6px 0; font-size: 80%; list-style-type: square; }
 code { font-family: monospace; font-size: 115%; }
-h2 { color: #06c; font-size: 120%; margin-bottom: 15px; }
+h2 { color: #06c; font-size: 115%; margin-bottom: 15px; }
 .resource { margin-bottom: 25px; }
 .action { margin: 15px 0 -10px 20px; }
 h3 { font-size: 90%; padding-bottom: 6px; position: relative; }
