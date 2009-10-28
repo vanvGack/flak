@@ -38,6 +38,13 @@ class UsersControllerTest < ActionController::TestCase
         assert_equal @active_user.id, body.last['user']['id']
       end
     end
-  end
 
+    context "#prune" do
+      should "logout stale users" do
+        User.expects(:logout_stale!)
+        get :prune
+        assert_response :success
+      end
+    end
+  end
 end
