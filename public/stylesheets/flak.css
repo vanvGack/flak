@@ -1,7 +1,7 @@
 * { font-family: "Helvetica", "Arial", sans-serif; color: #555; line-height: 1.2em; }
 body { background: #ccc; padding-top: 20px; }
 #header { width: 500px; margin: 0 auto 15px; }
-#content { width: 500px; margin: 0 auto 15px; background: #eee; padding: 15px; -webkit-border-radius: 8px; }
+#content { width: 500px; margin: 0 auto 15px; background: #eee; padding: 15px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; }
 #introduction { margin-bottom: 20px; }
 h1 { margin-bottom: 15px; }
 h2 { color: #06c; font-size: 120%; margin-bottom: 15px; }
