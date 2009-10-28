@@ -1,12 +1,20 @@
-* { font-family: "Helvetica", "Arial", sans-serif; }
+* { font-family: "Helvetica", "Arial", sans-serif; color: #555; line-height: 1.2em; }
 body { background: #ccc; padding-top: 20px; }
 #header { width: 500px; margin: 0 auto 15px; }
 #content { width: 500px; margin: 0 auto 15px; background: #eee; padding: 15px; -webkit-border-radius: 8px; }
+#introduction { margin-bottom: 20px; }
+h1 { margin-bottom: 15px; }
 h2 { color: #06c; font-size: 120%; margin-bottom: 15px; }
 .resource { margin-bottom: 25px; }
-.action { margin: 15px 0; }
-h3 { font-size: 90%; padding-bottom: 0; }
-p { font-size: 80%; }
-.request p { margin-top: 15px; }
-pre { font-family: monospace; font-size: 90%; padding: 0 15px; margin: 10px 0 10px 25px; display: block; border-left: 2px solid #06c; }
+.action { margin: 15px 0 -10px 20px; }
+h3 { font-size: 90%; padding-bottom: 6px; position: relative; }
+h3:before { content: "★"; left: -20px; position: absolute; color: #aaa; }
+p { font-size: 80%; margin-bottom: 10px; }
+dt { font-style: italic; font-size: 90%; }
+dd { padding-bottom: 5px; }
+dd ul { margin-left: 18px; }
+dd li { margin: 6px 0; font-size: 80%; list-style-type: square; }
+dd p { margin: 6px 0; }
+code { font-family: monospace; font-size: 90%; padding: 0 6px; margin: 10px 0 10px 2px; display: block; border-left: 1px dotted #888; color: #888; }
 #footer { width: 500px; margin: 0 auto 15px; font-size: 10px; color: #888; }
+#footer a { color: #888; }

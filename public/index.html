@@ -13,75 +13,148 @@
       <img src="/images/tag.gif" alt="A Private, API-based Chat Server">
     </div>
     <div id="content">
+
+      <div id="introduction">
+        <h1><strong>Welcome to Flak.</strong></h1>
+        <p>Flak is a private, API-based chat server made to server as the back-end to a variety of clients. Requests are made and returned in either XML or JSON.</p>
+      </div>
+
       <div class="resource">
         <h2>Users</h2>
+
         <div class="action">
           <h3>POST /users</h3>
           <p>Create a new user account.</p>
-          <div class="request">
-            <p><em>Request:</em></p>
-<pre>{
-  "user" => {
-    "first_name": "Name",
-    "last_name": "Name",
-    "email": "email@example.com",
-    "password": "asdfasdf",
-    "password_confirmation": "asdfasdf"
-  }
-}</pre>
-          </div>
+          <dl>
+            <dt>Request:</dt>
+            <dd>
+              <code>{
+                "user" => {
+                  "first_name": "Name",
+                  "last_name": "Name",
+                  "email": "email@example.com",
+                  "password": "asdfasdf",
+                  "password_confirmation": "asdfasdf"
+                }
+              }</code>
+            </dd>
+            <dt>Success Response:</dt>
+            <dd>
+              <code>{ "id": "0" }</code>
+            </dd>
+            <dt>Failure Response:</dt>
+            <dd>
+              <code>["Error message", "Error message"]</code>
+            </dd>
+          </dl>
         </div>
+
         <div class="action">
           <h3>GET /users</h3>
           <p>Retrieve a list of registered users.</p>
+          <dl>
+            <dt>Success Response:</dt>
+            <dd>
+              <code>[{"user": { "id": 1, "email": "email@example.com" } }]</code>
+            </dd>
+          </dl>
         </div>
+
         <div class="action">
           <h3>GET /users/current</h3>
           <p>Retrieve a list of currently logged in users.</p>
+          <dl>
+            <dt>Success Response:</dt>
+            <dd>
+              <code>[{"user": { "id": 1, "email": "email@example.com" } }]</code>
+            </dd>
+          </dl>
         </div>
       </div>
 
       <div class="resource">
         <h2>Sessions</h2>
+
         <div class="action">
           <h3>POST /session</h3>
           <p>Create a new user session.</p>
-          <div class="request">
-            <p><em>Request:</em></p>
-<pre>{
-  "session" => {
-    "email" => "email@example.com",
-    "password" => "asdfasdf"
-  }
-}</pre>
-          </div>
+          <dl>
+            <dt>Request:</dt>
+            <dd>
+              <code>{ "session": { "email": "email@example.com", "password": "asdfasdf" } }</code>
+            </dd>
+            <dt>Success Response:</dt>
+            <dd>
+              <code>HTTP/1.1 200 OK</code>
+            </dd>
+            <dt>Failure Response:</dt>
+            <dd>
+              <code>HTTP/1.1 401 Unauthorized</code>
+            </dd>
+          </dl>
         </div>
+
         <div class="action">
           <h3>DELETE /session</h3>
           <p>Destroy the current user session.</p>
+          <dl>
+            <dt>Success Response:</dt>
+            <dd>
+              <code>HTTP/1.1 200 OK</code>
+            </dd>
+          </dl>
         </div>
       </div>
 
       <div class="resource">
         <h2>Messages</h2>
+
         <div class="action">
           <h3>GET /messages</h3>
           <p>Get a list of messages.</p>
+          <dl>
+            <dt>Params:</dt>
+            <dd>
+              <ul>
+                <li>
+                  <strong>from_id</strong>: <em>Optional.</em> Will return all messages starting with the message following the id passed in from_id.
+                </li>
+                <li>
+                  <strong>page</strong>: <em>Optional.</em> Change the page to be returned.
+                </li>
+                <li>
+                  <strong>per_page</strong>: <em>Optional.</em> The number of records per page to be returned.
+                </li>
+              </ul>
+            </dd>
+            <dt>Success Response:</dt>
+            <dd>
+              <p>There are 4 kinds of messages: login, logout, stale_logout, and message. A stale log out will occur when a user closes their client without destroying their session. The rest are self-explanatory.</p>
+              <code>[{"message": { "kind": "message", "created_at": "2009-10-27T04:11:47Z", "body": "Message", "updated_at": "2009-10-27T04:11:47Z", "id": 1, "user_id": 1 } }]</code>
+            </dd>
+          </dl>
         </div>
+
         <div class="action">
           <h3>POST /messages</h3>
           <p>Post a new message.</p>
-          <div class="request">
-            <p><em>Request:</em></p>
-<pre>{
-  "message" => {
-    "body" => "email@example.com"
-  }
-}</pre>
-          </div>
+          <dl>
+            <dt>Request:</dt>
+            <dd>
+              <code>{ "message": { "body": "email@example.com" } }</code>
+            </dd>
+            <dt>Success Response:</dt>
+            <dd>
+              <code>{ "message": { "created_at": "2009-10-28T03:09:37Z", "id": 2 } }</code>
+            </dd>
+            <dt>Failure Response:</dt>
+            <dd>
+              <code>["Error message", "Error message"]</code>
+            </dd>
+          </dl>
         </div>
       </div>
     </div>
-    <div id="footer">No &copy; here. Flak is free.</div>
+    <div id="footer">No &copy; here. Flak is free. <a href="/LICENSE">License.</a></div>
   </body>
 </html>
