@@ -8,7 +8,7 @@ h2 { color: #06c; font-size: 120%; margin-bottom: 15px; }
 .resource { margin-bottom: 25px; }
 .action { margin: 15px 0 -10px 20px; }
 h3 { font-size: 90%; padding-bottom: 6px; position: relative; }
-h3:before { content: "★"; left: -20px; position: absolute; color: #aaa; }
+h3 span { font-family: "Hiragino Kaku Gothic Pro", "Osaka", "Zapf Dingbats"; position: absolute; left: -20px; color: #999; }
 p { font-size: 80%; margin-bottom: 10px; }
 dt { font-style: italic; font-size: 90%; }
 dd { padding-bottom: 5px; }
