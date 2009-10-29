@@ -50,6 +50,13 @@ class MessagesControllerTest < ActionController::TestCase
           assert_equal [@messages[1].id, @messages[0].id],
                        JSON.parse(@response.body).map{|j|j['message']['id']}
         end
+
+        should "only return the kind of message specified" do
+          get :index, :kind => "message"
+          assert_response :success
+          assert_same_elements @messages.map(&:id),
+                               JSON.parse(@response.body).map{|j|j['message']['id']}
+        end
       end
     end
   end
