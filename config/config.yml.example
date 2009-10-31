@@ -1,5 +1,5 @@
 server_name: "Flak"
-signup_key: "FlakForPresident"
+signup_key: "flak4president"
 stale_timeout_in_minutes: 5
 session_secret: {{session_secret}}
 site_key: {{site_key}}
