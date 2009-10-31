@@ -1,5 +1,6 @@
 .DS_Store
 /config/database.yml
+/config/config.yml
 /config/deploy.rb
 /db/schema.rb
 /doc/*

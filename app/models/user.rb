@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   has_many :messages
 
-  named_scope :stale, proc { { :conditions => ['last_activity_at < ? AND logged_in = ?', FLAK[:stale_timeout_in_minutes].minutes.ago, true] } }
+  named_scope :stale, proc { { :conditions => ['last_activity_at < ? AND logged_in = ?', Flak.stale_timeout_in_minutes.minutes.ago, true] } }
 
   def self.authenticate(options)
     options ||= {}
