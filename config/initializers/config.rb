@@ -4,6 +4,8 @@ class Flak
 
   if File.exist?("#{Rails.root}/config/config.yml")
     self.settings = YAML.load_file("#{Rails.root}/config/config.yml").with_indifferent_access
+  else
+    self.settings = {}
   end
 
   def self.method_missing(method_name)
