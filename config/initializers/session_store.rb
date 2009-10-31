@@ -7,7 +7,7 @@
 ActionController::Base.session = {
   :key          => '_flak_session',
   :secret       => Flak.session_secret,
-  :expire_after => Flak.stale_timeout_in_minutes.minutes
+  :expire_after => Flak.stale_timeout_in_minutes.to_i.minutes
 }
 
 # Use the database for sessions instead of the cookie-based default,

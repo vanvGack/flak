@@ -16,7 +16,7 @@ Factory.define :logged_in_user, :parent => :user do |f|
 end
 
 Factory.define :stale_user, :parent => :logged_in_user do |f|
-  f.last_activity_at { (Flak.stale_timeout_in_minutes + 10).minutes.ago }
+  f.last_activity_at { (Flak.stale_timeout_in_minutes.to_i + 10).minutes.ago }
 end
 
 Factory.define :active_user, :parent => :logged_in_user do |f|
