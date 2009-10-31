@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :login_required, :only => [:index, :current]
+  before_filter :signup_key_required, :only => [:create]
 
   def index
     @users = User.find(:all) do
@@ -43,6 +44,18 @@ class UsersController < ApplicationController
   def prune
     User.logout_stale!
     head :ok
+  end
+
+
+protected
+
+  def signup_key_required
+    if Flak.signup_key && params[:key] != Flak.signup_key
+      respond_to do |wants|
+        wants.json { render :json => { :error => "Invalid sign up key" }, :status => :forbidden }
+        wants.xml { render :xml => { :error => "Invalid sign up key" }.to_xml(:root => "errors"), :status => :forbidden }
+      end
+    end
   end
 
 end

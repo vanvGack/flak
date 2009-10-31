@@ -5,15 +5,22 @@ class UsersControllerTest < ActionController::TestCase
   context UsersController do
     context "#create" do
       should "return the id of the new user on success" do
-        post :create, :user => Factory.attributes_for(:user)
+        post :create, :key => Flak.signup_key, :user => Factory.attributes_for(:user)
         assert_response :success
         assert JSON.parse(@response.body)["user"]["id"], "The id of the new user was not returned on success"
       end
 
       should "return errors on failure" do
-        post :create
+        post :create, :key => Flak.signup_key
         assert_response :success
         assert_same_elements JSON.parse(@response.body), User.create.errors.full_messages
+      end
+    end
+
+    context "#create with invalid sign up key" do
+      should "return forbidden if passed the wrong sign up key" do
+        post :create
+        assert_response :forbidden
       end
     end
 
