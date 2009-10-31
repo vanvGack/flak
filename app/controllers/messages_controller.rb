@@ -33,7 +33,7 @@ class MessagesController < ApplicationController
         wants.xml { render :xml => @message.to_xml(:methods => [:user_first_name, :user_last_name]) }
       else
         wants.json { render :json => @message.errors.full_messages }
-        wants.xml { render :xml => @message.errors.full_messages }
+        wants.xml { render :xml => @message.errors }
       end
     end
   end

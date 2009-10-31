@@ -24,7 +24,7 @@ class UsersController < ApplicationController
         wants.xml { render :xml => @user.to_xml(:only => [:id, :email, :first_name, :last_name]) }
       else
         wants.json { render :json => @user.errors.full_messages }
-        wants.xml { render :xml => @user.errors.full_messages }
+        wants.xml { render :xml => @user.errors }
       end
     end
   end
