@@ -12,7 +12,9 @@ class User < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation
 
-  has_many :messages
+  has_many :user_rooms, :dependent => :destroy
+  has_many :rooms, :through => :user_rooms
+  has_many :messages, :dependent => :destroy
 
   named_scope :stale, proc { { :conditions => ['last_activity_at < ? AND logged_in = ?', Flak.stale_timeout_in_minutes.to_i.minutes.ago, true] } }
 
@@ -48,6 +50,7 @@ class User < ActiveRecord::Base
     transaction do
       update_attribute(:logged_in, false)
       messages.create!(:kind => 'stale_logout')
+      user_rooms.clear
     end
   end
 
@@ -55,6 +58,7 @@ class User < ActiveRecord::Base
     transaction do
       update_attribute(:logged_in, false)
       messages.create!(:kind => 'logout')
+      user_rooms.clear
     end
   end
 
