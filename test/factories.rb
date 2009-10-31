@@ -43,6 +43,14 @@ Factory.define :stale_logout_message, :parent => :message do |f|
   f.kind 'stale_logout'
 end
 
+
+# ROOMS
+Factory.define :room do |f|
+  f.name { Forgery(:lorem_ipsum).word(:random => true).titleize }
+  f.topic { Forgery(:lorem_ipsum).sentence(:random => true) }
+end
+
+
 # SEQUENCES
 Factory.sequence :email do |n|
   "user#{n}@example.com"
