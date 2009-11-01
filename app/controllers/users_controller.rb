@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   def prune
-    User.logout_stale!
+    User.logout_all_stale!
     head :ok
   end
 

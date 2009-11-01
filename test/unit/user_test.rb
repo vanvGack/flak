@@ -89,11 +89,11 @@ class UserTest < ActiveSupport::TestCase
       @active_user = Factory(:active_user)
     end
 
-    should "logout only the stale users when calling logout_stale!" do
+    should "logout only the stale users when calling logout_all_stale!" do
       assert @stale_user1.logged_in?
       assert @stale_user2.logged_in?
       assert @active_user.logged_in?
-      User.logout_stale!
+      User.logout_all_stale!
       assert !@stale_user1.reload.logged_in?
       assert !@stale_user2.reload.logged_in?
       assert @active_user.reload.logged_in?

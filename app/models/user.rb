@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.logout_stale!
+  def self.logout_all_stale!
     transaction do
       User.stale.each do |user|
         user.stale_logout!

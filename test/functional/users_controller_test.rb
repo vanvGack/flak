@@ -49,7 +49,7 @@ class UsersControllerTest < ActionController::TestCase
 
     context "#prune" do
       should "logout stale users" do
-        User.expects(:logout_stale!)
+        User.expects(:logout_all_stale!)
         get :prune
         assert_response :success
       end
