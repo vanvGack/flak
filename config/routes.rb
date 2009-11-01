@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users, :only => [:index, :create], :collection => { :current => :get, :prune => :get }
   map.resource  :session, :only => [:create, :destroy]
-  map.resources :rooms, :only => [:index]
+  map.resources :rooms, :only => [:index, :create]
   map.resources :messages, :only => [:index, :create]
 end

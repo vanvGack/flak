@@ -14,4 +14,17 @@ class RoomsController < ApplicationController
     end
   end
 
+  def create
+    @room = Room.new(params[:room])
+    respond_to do |wants|
+      if @room.save
+        wants.json { render :json => @room }
+        wants.xml { render :xml => @room }
+      else
+        wants.json { render :json => @room.errors.full_messages }
+        wants.xml { render :xml => @room.errors }
+      end
+    end
+  end
+
 end
