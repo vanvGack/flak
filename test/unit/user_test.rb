@@ -99,5 +99,21 @@ class UserTest < ActiveSupport::TestCase
       assert @active_user.reload.logged_in?
     end
   end
-  
+
+  context "A user in a room" do
+    setup do
+      @user = Factory(:user_in_a_room)
+    end
+
+    should "leave the rooms when logging out" do
+      @user.logout!
+      assert_equal [], @user.rooms
+    end
+
+    should "leave the rooms when having a 'stale' log out" do
+      @user.stale_logout!
+      assert_equal [], @user.rooms
+    end
+  end
+
 end
