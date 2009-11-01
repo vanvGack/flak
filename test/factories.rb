@@ -51,6 +51,14 @@ Factory.define :room do |f|
 end
 
 
+# USER ROOMS
+Factory.define :user_in_a_room, :parent => :logged_in_user do |f|
+  f.after_create do |u|
+    u.rooms << Factory(:room)
+  end
+end
+
+
 # SEQUENCES
 Factory.sequence :email do |n|
   "user#{n}@example.com"
