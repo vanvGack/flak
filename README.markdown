@@ -50,7 +50,7 @@ Start the server so you can develop locally:
 
 You can then access the application at: http://localhost:3000
 
-Press Ctrl-C to quick the server.
+Press Ctrl-C to kill the server.
 
 Use
 ---
