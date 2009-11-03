@@ -9,8 +9,8 @@ class UsersController < ApplicationController
       order_by email
     end
     respond_to do |wants|
-      wants.json { render :json => @users.to_json(:only => [:id, :email, :first_name, :last_name]) }
-      wants.xml { render :xml => @users.to_xml(:only => [:id, :email, :first_name, :last_name]) }
+      wants.json { render :json => @users.to_json(User.default_serialization_options) }
+      wants.xml { render :xml => @users.to_xml(User.default_serialization_options) }
     end
   end
 
@@ -20,8 +20,8 @@ class UsersController < ApplicationController
     respond_to do |wants|
       if @user.save
         self.current_user = @user
-        wants.json { render :json => @user.to_json(:only => [:id, :email, :first_name, :last_name]) }
-        wants.xml { render :xml => @user.to_xml(:only => [:id, :email, :first_name, :last_name]) }
+        wants.json { render :json => @user.to_json(User.default_serialization_options) }
+        wants.xml { render :xml => @user.to_xml(User.default_serialization_options) }
       else
         wants.json { render :json => @user.errors.full_messages }
         wants.xml { render :xml => @user.errors }
@@ -36,8 +36,8 @@ class UsersController < ApplicationController
       order_by email
     end
     respond_to do |wants|
-      wants.json { render :json => @users.to_json(:only => [:id, :email, :first_name, :last_name]) }
-      wants.xml { render :xml => @users.to_xml(:only => [:id, :email, :first_name, :last_name]) }
+      wants.json { render :json => @users.to_json(User.default_serialization_options) }
+      wants.xml { render :xml => @users.to_xml(User.default_serialization_options) }
     end
   end
 

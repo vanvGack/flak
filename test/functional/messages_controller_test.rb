@@ -8,13 +8,13 @@ class MessagesControllerTest < ActionController::TestCase
         user = Factory(:user)
         login_as(user)
         post :create, :message => Factory.attributes_for(:message)
-        assert JSON.parse(@response.body)['message']['id'], user.messages.last.id
+        assert_equal @response.body, user.messages.last.to_json(Message.default_serialization_options)
       end
 
       should "return errors on failure" do
         login_as(Factory(:user))
         post :create
-        assert_same_elements JSON.parse(@response.body), Message.create.errors.full_messages
+        assert_same_elements @response.body, Message.create.errors.full_messages.to_json
       end
     end
 
@@ -24,7 +24,7 @@ class MessagesControllerTest < ActionController::TestCase
         messages = [Factory(:login_message), Factory(:stale_logout_message), Factory(:message)]
         get :index
         assert_response :success
-        assert_same_elements JSON.parse(@response.body).map{|j| j['message']['id']}, Message.all.map(&:id)
+        assert_same_elements @response.body, Message.all.to_json(Message.default_serialization_options)
       end
 
       context "when limiting responses" do
@@ -40,22 +40,22 @@ class MessagesControllerTest < ActionController::TestCase
         should "return messages after the given id in chronological order" do
           get :index, :after_id => @messages[1].id
           assert_response :success
-          assert_equal [@messages[2], @messages[3], @user.messages.last].map(&:id),
-                       JSON.parse(@response.body).map{|j|j['message']['id']}
+          assert_equal Message.all(:conditions => ['id > ?', @messages[1].id], :order => 'created_at').to_json(Message.default_serialization_options),
+                       @response.body
         end
 
         should "return messages before the given id in reverse chronological order" do
           get :index, :before_id => @messages[2].id
           assert_response :success
-          assert_equal [@messages[1].id, @messages[0].id],
-                       JSON.parse(@response.body).map{|j|j['message']['id']}
+          assert_equal Message.all(:conditions => ['id < ?', @messages[2].id], :order => 'created_at desc').to_json(Message.default_serialization_options),
+                       @response.body
         end
 
-        should "only return the kind of message specified" do
+        should "only return the kind of message specified in reverse chronological order" do
           get :index, :kind => "message"
           assert_response :success
-          assert_same_elements @messages.map(&:id),
-                               JSON.parse(@response.body).map{|j|j['message']['id']}
+          assert_same_elements Message.find_all_by_kind('message', :order => 'created_at desc').to_json(Message.default_serialization_options),
+                               @response.body
         end
       end
     end

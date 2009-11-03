@@ -7,13 +7,13 @@ class UsersControllerTest < ActionController::TestCase
       should "return the id of the new user on success" do
         post :create, :key => Flak.signup_key, :user => Factory.attributes_for(:user)
         assert_response :success
-        assert JSON.parse(@response.body)["user"]["id"], "The id of the new user was not returned on success"
+        assert_equal @response.body, User.last.to_json(User.default_serialization_options)
       end
 
       should "return errors on failure" do
         post :create, :key => Flak.signup_key
         assert_response :success
-        assert_same_elements JSON.parse(@response.body), User.create.errors.full_messages
+        assert_same_elements @response.body, User.create.errors.full_messages.to_json
       end
     end
 
@@ -40,10 +40,8 @@ class UsersControllerTest < ActionController::TestCase
         @active_user = Factory(:active_user)
         get :current
         assert_response :success
-        body = JSON.parse(@response.body).sort_by{|r| r['user']['id'] }
-        assert_equal user.id, body.first['user']['id']
-        assert_equal @active_user.id, body.last['user']['id']
-        assert !body.any?{|r| r['user']['id'] == @logged_out_user.id }
+        assert_equal User.find_all_by_logged_in(true).to_json(User.default_serialization_options),
+                     @response.body
       end
     end
 
