@@ -8,7 +8,7 @@ Setup
 
     git clone git://github.com/sevenwire/flak.git
     # or download and extract from from http://github.com/sevenwire/flak/archives/master
-    cd flak
+    cd flak # or wherever the application was cloned or extracted to, the root of the project
     rake flak:setup
     # Change config/config.yml and config/database.yml to taste
     rake db:create:all
