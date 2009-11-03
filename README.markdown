@@ -19,6 +19,6 @@ Use
 ---
 
 * Go to http://localhost:3000 in a browser for an API reference
-* Test with lib/flak\_wrapper.rb (requires httparty, which you can install using: gem install httparty)
+* Test with lib/flak\_wrapper.rb, which mostly works (requires httparty, which you can install using: gem install httparty)
 * Try it out with curl
 * Write your own interface
