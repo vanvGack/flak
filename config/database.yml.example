@@ -1,19 +1,33 @@
+# Use sqlite
 development:
-  adapter: mysql
-  encoding: utf8
-  reconnect: false
-  database: flak_development
+  adapter: sqlite3
+  database: db/development.sqlite3
   pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  timeout: 5000
 
 test:
-  adapter: mysql
-  encoding: utf8
-  reconnect: false
-  database: flak_test
+  adapter: sqlite3
+  database: db/test.sqlite3
   pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  timeout: 5000
+
+# Use mysql
+# development:
+#   adapter: mysql
+#   encoding: utf8
+#   reconnect: false
+#   database: flak_development
+#   pool: 5
+#   username: root
+#   password:
+#   socket: /tmp/mysql.sock
+# 
+# test:
+#   adapter: mysql
+#   encoding: utf8
+#   reconnect: false
+#   database: flak_test
+#   pool: 5
+#   username: root
+#   password:
+#   socket: /tmp/mysql.sock

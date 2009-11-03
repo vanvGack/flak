@@ -3,5 +3,6 @@ namespace :flak do
   task :setup do
     `cp #{Rails.root}/config/config.yml.example #{Rails.root}/config/config.yml`
     `ruby -pi -e 'gsub(/\\{\\{session_secret\\}\\}/, "#{ActiveSupport::SecureRandom.base64(64)}")' -e 'gsub(/\\{\\{site_key\\}\\}/, "#{ActiveSupport::SecureRandom.hex(24)}")' #{Rails.root}/config/config.yml`
+    `cp #{Rails.root}/config/database.yml.example #{Rails.root}/config/database.yml`
   end
 end

@@ -6,4 +6,5 @@
 /doc/*
 /log/*
 /tmp/*
+/db/*.sqlite3
 
