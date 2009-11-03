@@ -20,8 +20,8 @@ class MessagesController < ApplicationController
       end
     end
     respond_to do |wants|
-      wants.json { render :json => @messages.to_json(:methods => [:user_first_name, :user_last_name]) }
-      wants.xml { render :xml => @messages.to_xml(:methods => [:user_first_name, :user_last_name]) }
+      wants.json { render :json => @messages.to_json(Message.default_serialization_options) }
+      wants.xml { render :xml => @messages.to_xml(Message.default_serialization_options) }
     end
   end
 
@@ -29,8 +29,8 @@ class MessagesController < ApplicationController
     @message = current_user.messages.build(params[:message] && params[:message].merge(:kind => 'message'))
     respond_to do |wants|
       if @message.save
-        wants.json { render :json => @message.to_json(:methods => [:user_first_name, :user_last_name]) }
-        wants.xml { render :xml => @message.to_xml(:methods => [:user_first_name, :user_last_name]) }
+        wants.json { render :json => @message.to_json(Message.default_serialization_options) }
+        wants.xml { render :xml => @message.to_xml(Message.default_serialization_options) }
       else
         wants.json { render :json => @message.errors.full_messages }
         wants.xml { render :xml => @message.errors }

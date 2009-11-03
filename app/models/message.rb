@@ -8,4 +8,8 @@ class Message < ActiveRecord::Base
 
   delegate :first_name, :last_name, :to => :user, :prefix => true, :allow_nil => true
 
+  def self.default_serialization_options
+    {:methods => [:user_first_name, :user_last_name]}
+  end
+
 end

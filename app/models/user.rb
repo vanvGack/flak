@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
 
   named_scope :stale, proc { { :conditions => ['last_activity_at < ? AND logged_in = ?', Flak.stale_timeout_in_minutes.to_i.minutes.ago, true] } }
 
+  def self.default_serialization_options
+    {:only => [:id, :email, :first_name, :last_name]}
+  end
+
   def self.authenticate(options)
     options ||= {}
     return nil if options[:email].blank? || options[:password].blank?
