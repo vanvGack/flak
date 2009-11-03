@@ -27,4 +27,23 @@ class RoomsController < ApplicationController
     end
   end
 
+  def join
+    @user_room = current_user.user_rooms.build(:room => Room.find(params[:id]))
+    respond_to do |wants|
+      if @user_room.save
+        wants.json { render :json => @user_room }
+        wants.xml { render :xml => @user_room }
+      else
+        wants.json { render :json => @user_room.errors.full_messages, :status => :forbidden }
+        wants.json { render :xml => @user_room.errors, :status => :forbidden }
+      end
+    end
+  end
+
+  def leave
+    @user_room = current_user.user_rooms.find(:first, :conditions => { :room_id => params[:id] })
+    @user_room.destroy
+    render :nothing => true
+  end
+
 end
