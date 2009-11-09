@@ -30,16 +30,11 @@ class User < ActiveRecord::Base
   end
 
   def check_in!
-    transaction do
-      self.last_activity_at = Time.now
-
-      if !logged_in?
-        messages.create(:kind => 'login')
-        self.logged_in = true
-      end
-
-      save!
+    self.last_activity_at = Time.now
+    if !logged_in?
+      self.logged_in = true
     end
+    save!
   end
 
   def self.logout_all_stale!
@@ -53,23 +48,48 @@ class User < ActiveRecord::Base
   def stale_logout!
     transaction do
       update_attribute(:logged_in, false)
-      messages.create!(:kind => 'stale_logout')
-      user_rooms.clear
+      user_rooms.leave_rooms(user, "stale_logout")
     end
   end
 
   def logout!
     transaction do
       update_attribute(:logged_in, false)
-      messages.create!(:kind => 'logout')
-      user_rooms.clear
+      user_rooms.leave_rooms(user, "logout")
     end
   end
 
   def login!
+    check_in!
+  end
+
+  def leave_all_rooms!(kind='logout')
     transaction do
-      update_attribute(:logged_in, true)
-      messages.create!(:kind => 'login')
+      user_rooms.each do |user_room|
+        message = messages.build(:kind => kind)
+        message.room = user_room.room
+        message.save!
+        user_room.destroy!
+      end
+    end
+  end
+
+  def enter_room!(room)
+    transaction do
+      message = messages.build(:kind => 'enter')
+      message.room = room
+      message.save!
+      rooms << room
+    end
+  end
+
+  def leave_room!(room, kind="leave")
+    transaction do
+      user_room = user_rooms.find_by_room_id(room.id)
+      message = messages.build(:kind => kind)
+      message.room = room
+      message.save!
+      user_room.destroy!
     end
   end
 
