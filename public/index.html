@@ -93,6 +93,50 @@
       </div>
 
       <div class="resource">
+        <h2>Current User</h2>
+
+        <div class="action">
+          <a name="get-current-user"></a>
+          <h3><span>&#9733;</span>GET /current_user</h3>
+          <p>Retrieve the current user's information.</p>
+          <dl>
+            <dt>Success Response Body:</dt>
+            <dd>
+              <code>{ "user": { "id": 1, "email": "email@example.com", "first_name": "First", "last_name": "Last" } }</code>
+            </dd>
+          </dl>
+        </div>
+
+        <div class="action">
+          <a name="put-current-user"></a>
+          <h3><span>&#9733;</span>PUT /current_user</h3>
+          <p>Update the current user's information.</p>
+          <dl>
+            <dt>Request Body:</dt>
+            <dd>
+              <code>{
+                "user": {
+                  "first_name": "Name",
+                  "last_name": "Name",
+                  "email": "email@example.com",
+                  "password": "asdfasdf",
+                  "password_confirmation": "asdfasdf"
+                }
+              }</code>
+            </dd>
+            <dt>Success Response Body:</dt>
+            <dd>
+              <code>{ "user": { "id": 1, "email": "email@example.com", "first_name": "Name", "last_name": "Name" } }</code>
+            </dd>
+            <dt>Failure Response Body:</dt>
+            <dd>
+              <code>["Error message", "Error message"]</code>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="resource">
         <h2>Sessions</h2>
 
         <div class="action">
