@@ -48,14 +48,14 @@ class User < ActiveRecord::Base
   def stale_logout!
     transaction do
       update_attribute(:logged_in, false)
-      leave_all_rooms!(user, "stale_logout")
+      leave_all_rooms!("stale_logout")
     end
   end
 
   def logout!
     transaction do
       update_attribute(:logged_in, false)
-      leave_all_rooms!(user, "logout")
+      leave_all_rooms!("logout")
     end
   end
 
