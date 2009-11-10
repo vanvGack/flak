@@ -6,6 +6,9 @@ class MessagesController < ApplicationController
   def index
     @messages = Message.find(:all, :include => :user) do
       paginate :page => params[:page], :per_page => params[:per_page]
+      if params[:user_id]
+        user_id == params[:user_id]
+      end
       if params[:kind]
         kind == params[:kind]
       end
