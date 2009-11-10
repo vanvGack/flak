@@ -77,8 +77,8 @@ class UserTest < ActiveSupport::TestCase
 
     should "create a logout message when doing a stale logout" do
       assert @user.messages.empty?
-      @user.logout!
-      assert_equal 'logout', @user.messages.last.kind
+      @user.stale_logout!
+      assert_equal 'stale_logout', @user.messages.last.kind
     end
   end
 

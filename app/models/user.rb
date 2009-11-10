@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
         message = messages.build(:kind => kind)
         message.room = user_room.room
         message.save!
-        user_room.destroy!
+        user_room.destroy
       end
     end
   end
@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
       message = messages.build(:kind => kind)
       message.room = room
       message.save!
-      user_room.destroy!
+      user_room.destroy
     end
   end
 
