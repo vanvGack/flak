@@ -58,6 +58,33 @@ class MessagesControllerTest < ActionController::TestCase
                                @response.body
         end
       end
+
+      context "when nested under users" do
+        setup do
+          @user1 = Factory(:user)
+          login_as(@user1)
+          @user2 = Factory(:user)
+          login_as(@user1)
+        end
+
+        should "return messages for the user 1" do
+          get :index, :user_id => @user1.id
+          assert_response :success
+          JSON.parse(@response.body).each do |message|
+            assert @user1.message_ids.include?(message["message"]["id"])
+          end
+        end
+
+        should "return messages for the user 2" do
+          get :index, :user_id => @user2.id
+          assert_response :success
+          JSON.parse(@response.body).each do |message|
+            assert @user2.message_ids.include?(message["message"]["id"])
+          end
+        end
+      end
     end
+
   end
+
 end
