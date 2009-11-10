@@ -33,10 +33,11 @@
         <h2>Users</h2>
 
         <div class="action">
+          <a name="post-users"></a>
           <h3><span>&#9733;</span>POST /users</h3>
           <p>Create a new user account.</p>
           <dl>
-            <dt>Request:</dt>
+            <dt>Request Body:</dt>
             <dd>
               <code>{
                 "key": "flak4president",
@@ -49,11 +50,11 @@
                 }
               }</code>
             </dd>
-            <dt>Success Response:</dt>
+            <dt>Success Response Body:</dt>
             <dd>
               <code>{ "user": { "id": 1, "email": "email@example.com", "first_name": "Name", "last_name": "Name" } }</code>
             </dd>
-            <dt>Failure Response:</dt>
+            <dt>Failure Response Body:</dt>
             <dd>
               <code>["Error message", "Error message"]</code>
             </dd>
@@ -61,10 +62,11 @@
         </div>
 
         <div class="action">
+          <a name="get-users"></a>
           <h3><span>&#9733;</span>GET /users</h3>
           <p>Retrieve a list of registered users.</p>
           <dl>
-            <dt>Success Response:</dt>
+            <dt>Success Response Body:</dt>
             <dd>
               <code>[{ "user": { "id": 1, "email": "email@example.com", "first_name": "First", "last_name": "Last" } }]</code>
             </dd>
@@ -72,14 +74,21 @@
         </div>
 
         <div class="action">
+          <a name="get-users-current"></a>
           <h3><span>&#9733;</span>GET /users/current</h3>
           <p>Retrieve a list of currently logged in users.</p>
           <dl>
-            <dt>Success Response:</dt>
+            <dt>Success Response Body:</dt>
             <dd>
               <code>[{ "user": { "id": 1, "email": "email@example.com", "first_name": "First", "last_name": "Last" } }]</code>
             </dd>
           </dl>
+        </div>
+
+        <div class="action">
+          <a name="get-users-id-messages"></a>
+          <h3><span>&#9733;</span>GET /users/:id/messages</h3>
+          <p>Retrieve a list of messages for the given user. Refer to <a href="#get-messages"><code>GET /messages</code></a> for information on available parameters.</p>
         </div>
       </div>
 
@@ -87,18 +96,19 @@
         <h2>Sessions</h2>
 
         <div class="action">
+          <a name="post-session"></a>
           <h3><span>&#9733;</span>POST /session</h3>
           <p>Create a new user session.</p>
           <dl>
-            <dt>Request:</dt>
+            <dt>Request Body:</dt>
             <dd>
               <code>{ "session": { "email": "email@example.com", "password": "asdfasdf" } }</code>
             </dd>
-            <dt>Success Response:</dt>
+            <dt>Success Response Status:</dt>
             <dd>
               <code>HTTP/1.1 200 OK</code>
             </dd>
-            <dt>Failure Response:</dt>
+            <dt>Failure Response Status:</dt>
             <dd>
               <code>HTTP/1.1 401 Unauthorized</code>
             </dd>
@@ -106,10 +116,11 @@
         </div>
 
         <div class="action">
+          <a name="delete-session"></a>
           <h3><span>&#9733;</span>DELETE /session</h3>
           <p>Destroy the current user session.</p>
           <dl>
-            <dt>Success Response:</dt>
+            <dt>Success Response Status:</dt>
             <dd>
               <code>HTTP/1.1 200 OK</code>
             </dd>
@@ -121,6 +132,7 @@
         <h2>Messages</h2>
 
         <div class="action">
+          <a name="get-messages"></a>
           <h3><span>&#9733;</span>GET /messages</h3>
           <p>Get a list of messages.</p>
           <dl>
@@ -128,10 +140,13 @@
             <dd>
               <ul>
                 <li>
-                  <strong>after_id</strong>: <em>Optional.</em> Will return 30 messages (configurable in pagination options) in chronological order (oldest to newest) starting with the message following the id passed in after_id.
+                  <strong>after_id</strong>: <em>Optional.</em> Will return messages in chronological order (oldest to newest) starting with the message following the id passed in after_id.
                 </li>
                 <li>
-                  <strong>before_id</strong>: <em>Optional.</em> Will return 30 messages (configurable in pagination options) in reverse chronologial order (newest to oldest) starting with the message before the id passed in before_id.
+                  <strong>before_id</strong>: <em>Optional.</em> Will return messages in reverse chronological order (newest to oldest) starting with the message before the id passed in before_id.
+                </li>
+                <li>
+                  <strong>user_id</strong>: <em>Optional.</em> Will return messages for the given user.
                 </li>
                 <li>
                   <strong>kind</strong>: <em>Optional.</em> Will return messages matching the specified kind. See below for the list of available message kinds.
@@ -144,7 +159,7 @@
                 </li>
               </ul>
             </dd>
-            <dt>Success Response:</dt>
+            <dt>Success Response Body:</dt>
             <dd>
               <p>There are 4 kinds of messages: login, logout, stale_logout, and message. A stale log out will occur when a user closes their client without destroying their session. The rest are self-explanatory.</p>
               <p>When not specifying after_id or before_id the response is in reverse chronological order (newest to oldest).</p>
@@ -154,18 +169,19 @@
         </div>
 
         <div class="action">
+          <a name="post-messages"></a>
           <h3><span>&#9733;</span>POST /messages</h3>
           <p>Post a new message.</p>
           <dl>
-            <dt>Request:</dt>
+            <dt>Request Body:</dt>
             <dd>
               <code>{ "message": { "body": "email@example.com" } }</code>
             </dd>
-            <dt>Success Response:</dt>
+            <dt>Success Response Body:</dt>
             <dd>
               <code>{ "message": { "user_first_name": "bob", "user_last_name": "smith", "kind": "message", "created_at": "2009-10-27T04:11:47Z", "body": "email@example.com", "updated_at": "2009-10-27T04:11:47Z", "id": 1, "user_id": 1 } }</code>
             </dd>
-            <dt>Failure Response:</dt>
+            <dt>Failure Response Body:</dt>
             <dd>
               <code>["Error message", "Error message"]</code>
             </dd>
