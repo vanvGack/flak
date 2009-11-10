@@ -19,12 +19,6 @@ class UserTest < ActiveSupport::TestCase
       assert @user.logged_in?
     end
 
-    should "create a login message when checking in" do
-      assert @user.messages.empty?
-      @user.check_in!
-      assert_equal 'login', @user.messages.last.kind
-    end
-
     should "be saved when checking in" do
       @user.expects(:save!)
       @user.check_in!
@@ -33,12 +27,6 @@ class UserTest < ActiveSupport::TestCase
     should "have logged_in set to true when logging in" do
       @user.login!
       assert @user.logged_in?
-    end
-
-    should "create a login message when logging in" do
-      assert @user.messages.empty?
-      @user.login!
-      assert_equal 'login', @user.messages.last.kind
     end
   end
 
@@ -64,21 +52,9 @@ class UserTest < ActiveSupport::TestCase
       assert !@user.logged_in?
     end
 
-    should "create a stale_logout message when doing a stale logout" do
-      assert @user.messages.empty?
-      @user.stale_logout!
-      assert_equal 'stale_logout', @user.messages.last.kind
-    end
-
     should "be set to logged-out when doing a logout" do
       @user.logout!
       assert !@user.logged_in?
-    end
-
-    should "create a logout message when doing a stale logout" do
-      assert @user.messages.empty?
-      @user.stale_logout!
-      assert_equal 'stale_logout', @user.messages.last.kind
     end
   end
 
@@ -103,6 +79,7 @@ class UserTest < ActiveSupport::TestCase
   context "A user in a room" do
     setup do
       @user = Factory(:user_in_a_room)
+      @room = @user.rooms.last
     end
 
     should "leave the rooms when logging out" do
@@ -113,6 +90,25 @@ class UserTest < ActiveSupport::TestCase
     should "leave the rooms when having a 'stale' log out" do
       @user.stale_logout!
       assert_equal [], @user.rooms
+    end
+
+    should "create an enter message when entering the room" do
+      assert_equal "enter", @room.messages.last.kind
+    end
+
+    should "create a leave message when leaving the room" do
+      @user.leave_room!(@room)
+      assert_equal "leave", @room.messages.last.kind
+    end
+
+    should "create a logout message when logging out" do
+      @user.logout!
+      assert_equal "logout", @room.messages.last.kind
+    end
+
+    should "create a stale_logout message when having a 'stale' log out" do
+      @user.stale_logout!
+      assert_equal "stale_logout", @room.messages.last.kind
     end
   end
 
