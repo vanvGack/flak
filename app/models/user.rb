@@ -10,14 +10,14 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :time_zone
 
   has_many :messages
 
   named_scope :stale, proc { { :conditions => ['last_activity_at < ? AND logged_in = ?', Flak.stale_timeout_in_minutes.to_i.minutes.ago, true] } }
 
   def self.default_serialization_options
-    {:only => [:id, :email, :first_name, :last_name]}
+    {:only => [:id, :email, :first_name, :last_name, :time_zone]}
   end
 
   def self.authenticate(options)
