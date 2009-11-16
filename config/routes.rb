@@ -3,4 +3,5 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :current_user, :only => [:show, :update]
   map.resource  :session, :only => [:create, :destroy]
   map.resources :messages, :only => [:index, :create]
+  map.flak '/flak', :controller => 'application', :action => 'flak'
 end
