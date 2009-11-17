@@ -34,6 +34,11 @@ Then you need to setup flak:
 
     rake flak:setup
 
+    # You may need to upgrade rubygems and rails. That last command will let
+    # you know, but just in case here are the commands:
+    #   gem update -y --system
+    #   gem update rails
+
 You can then change /path/to/flak/config/config.yml and /path/to/flak/config/database.yml to taste.
 
 Create the project's databases; one for development and one for testing:
